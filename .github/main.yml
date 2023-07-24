@@ -1,0 +1,40 @@
+name: signin
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 22 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+
+      - name: Use Node.js
+        uses: actions/setup-node@main
+        with:
+          node-version: "latest"
+
+      - name: 缓存依赖包
+        uses: actions/cache@main
+        id: cache-dependencies
+        with:
+          path: node_modules
+          key: ${{runner.OS}}-${{hashFiles('**/package-lock.json')}}
+
+      - name: 安装依赖包
+        run: |
+          npm install
+
+      - name: "开始执行"
+        run: |
+          npm run start
+        env:
+          refreshTokens: ${{secrets.refresh_token}}
+
+      - name: Delete Workflow Runs
+        uses: JuvenileQ/delete-workflow-runs@main
+        with:
+          keep_minimum_runs: 7
+          retain_days: 7
