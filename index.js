@@ -11,10 +11,10 @@ const rewardURL = 'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx
 const getEnv = () => {
   try {
     const str = core.getInput('refreshTokens')
+    return str.replace(/，/g, ',').split(',');
   } catch (e) {
     throw '未获取到refreshToken环境变量'
   }
-  return str.replace(/，/g, ',').split(',')
 }
 
 
