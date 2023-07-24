@@ -10,7 +10,8 @@ const rewardURL = 'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx
 // 获取 GitHub 环境变量
 const getEnv = () => {
   try {
-    const str = core.getInput('refreshTokens')
+    const str = core.getInput('refresh_token');
+    console.log(str.replace(/，/g, ',').split(','));
     return str.replace(/，/g, ',').split(',');
   } catch (e) {
     throw '未获取到refreshToken环境变量'
@@ -113,6 +114,7 @@ const getReward = (access_token, signInDay) => {
 !(() => {
   // 获取refreshToken
   let refreshTokenArray = getEnv()
+  refreshTokenArray = ['be0cf239f2994df69155c59be03a9955', 'e76d37e9d82b4c0fa9fb26eb1f5207db']
   if (!refreshTokenArray.length) {
     console.log('未获取到refreshToken, 程序终止')
     throw '未获取到refreshToken, 程序终止'
@@ -131,11 +133,13 @@ const getReward = (access_token, signInDay) => {
       remark = `${remark}（${nick_name}）`
       const sendMessage = await sign_in(access_token, remark)
       message.push(sendMessage)
+
+      console.log(sendMessage);
     } catch (e) {
       console.error(e, '\n')
       message.push(e)
     }
   })
 
-  console.log(`阿里云盘签到：\n${message.join('\n')}`)
+  // console.log(`阿里云盘签到：\n${message.join('\n')}`)
 })()

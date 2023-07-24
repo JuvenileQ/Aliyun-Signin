@@ -3,7 +3,7 @@ description: '通过 Github Actions 实现阿里云盘自动签到功能'
 author: 'JuvenileQ'
 
 inputs:
-  refreshTokens:
+  refresh_token:
     description: '用于验证身份令牌的refreshToken'
     required: true
 
