@@ -2,14 +2,14 @@
  * 阿里云盘自动签到脚本
  */
 const axios = require('axios')
-const updateAccesssTokenURL = 'https://auth.aliyundrive.com/v2/account/token'
+const updateAccessTokenURL = 'https://auth.aliyundrive.com/v2/account/token'
 const signinURL = 'https://member.aliyundrive.com/v1/activity/sign_in_list?_rx-s=mobile'
 const rewardURL = 'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s=mobile'
 
 // 使用 refresh_token 更新 access_token
-const updateAccesssToken = (queryBody, remark) => {
+const updateAccessToken = (queryBody, remark) => {
   const errorMessage = [remark, '更新 access_token 失败']
-  return axios(updateAccesssTokenURL, {
+  return axios(updateAccessTokenURL, {
     method: 'POST',
     data: queryBody,
     headers: {'Content-Type': 'application/json'}
@@ -101,7 +101,7 @@ const getReward = (access_token, signInDay) => {
 !(() => {
   // 获取 GitHub 环境变量
   const tokensEnv = process.env.refresh_token || '';
-  const refreshTokenArray = tokensEnv.replace(/，/g, ',').split(',');
+  const refreshTokenArray = tokensEnv.replace(/，/g, ',').replaceAll(" ", "").split(',');
 
   if (!refreshTokenArray.length) {
     console.log('未获取到refreshToken, 程序终止')
@@ -117,7 +117,7 @@ const getReward = (access_token, signInDay) => {
     }
 
     try {
-      const {nick_name, access_token} = await updateAccesssToken(queryBody, remark)
+      const {nick_name, access_token} = await updateAccessToken(queryBody, remark)
       remark = `${remark}（${nick_name}）`
       const sendMessage = await sign_in(access_token, remark)
       message.push(sendMessage)
