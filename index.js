@@ -2,22 +2,9 @@
  * 阿里云盘自动签到脚本
  */
 const axios = require('axios')
-const core = require('@actions/core')
 const updateAccesssTokenURL = 'https://auth.aliyundrive.com/v2/account/token'
 const signinURL = 'https://member.aliyundrive.com/v1/activity/sign_in_list?_rx-s=mobile'
 const rewardURL = 'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s=mobile'
-
-// 获取 GitHub 环境变量
-const getEnv = () => {
-  try {
-    const str = core.getInput('refresh_token');
-    console.log('string',str);
-    return str.replace(/，/g, ',').split(',');
-  } catch (e) {
-    throw '未获取到refreshToken环境变量'
-  }
-}
-
 
 // 使用 refresh_token 更新 access_token
 const updateAccesssToken = (queryBody, remark) => {
@@ -112,9 +99,10 @@ const getReward = (access_token, signInDay) => {
 }
 
 !(() => {
-  // 获取refreshToken
-  let refreshTokenArray = getEnv()
-  
+  // 获取 GitHub 环境变量
+  const tokensEnv = process.env.refresh_token || '';
+  const refreshTokenArray = tokensEnv.replace(/，/g, ',').split(',');
+
   if (!refreshTokenArray.length) {
     console.log('未获取到refreshToken, 程序终止')
     throw '未获取到refreshToken, 程序终止'
@@ -141,5 +129,5 @@ const getReward = (access_token, signInDay) => {
     }
   })
 
-  // console.log(`阿里云盘签到：\n${message.join('\n')}`)
-})()
+  console.log(`阿里云盘签到：\n${message.join('\n')}`)
+})();
