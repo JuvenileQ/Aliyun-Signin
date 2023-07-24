@@ -114,7 +114,7 @@ const getReward = (access_token, signInDay) => {
 !(() => {
   // 获取refreshToken
   let refreshTokenArray = getEnv()
-  refreshTokenArray = ['be0cf239f2994df69155c59be03a9955', 'e76d37e9d82b4c0fa9fb26eb1f5207db']
+  
   if (!refreshTokenArray.length) {
     console.log('未获取到refreshToken, 程序终止')
     throw '未获取到refreshToken, 程序终止'
