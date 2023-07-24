@@ -11,7 +11,7 @@ const rewardURL = 'https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx
 const getEnv = () => {
   try {
     const str = core.getInput('refresh_token');
-    console.log(str.replace(/，/g, ',').split(','));
+    console.log(str);
     return str.replace(/，/g, ',').split(',');
   } catch (e) {
     throw '未获取到refreshToken环境变量'
