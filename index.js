@@ -100,7 +100,7 @@ const getReward = (access_token, signInDay) => {
       return json.result
     })
 }
-// todo 验证效果，更新文档，检查文档
+
 !(() => {
   // 获取 GitHub 环境变量
   const tokensEnv = process.env.refresh_token || '';
