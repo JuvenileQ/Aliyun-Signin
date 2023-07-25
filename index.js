@@ -43,6 +43,8 @@ const sign_in = (access_token, remark) => {
   })
     .then(d => d.data)
     .then(async json => {
+      console.log("json", json);
+
       if (!json.success) {
         sendMessage.push('签到失败', json.message)
         return Promise.reject(sendMessage.join(','))
@@ -98,7 +100,7 @@ const getReward = (access_token, signInDay) => {
       return json.result
     })
 }
-
+// todo 验证效果，更新文档，检查文档
 !(() => {
   // 获取 GitHub 环境变量
   const tokensEnv = process.env.refresh_token || '';
