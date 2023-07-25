@@ -33,8 +33,13 @@
 
 **注意：多个账户时使用英文逗号分割 `refresh_token`**
 
-#### 第四步：点击仓库 Actions，如图：
 
+#### 第四步：点击仓库 Actions，如图：
+![img.png](assets/img.png)
+![img.png](assets/workflow.png)
+![img.png](assets/suc.png)
+
+### 结束：以后就不用管了
 
 ### 注意
 
