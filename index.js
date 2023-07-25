@@ -17,11 +17,12 @@ const updateAccessToken = (queryBody, remark) => {
     .then(d => d.data)
     .then(d => {
       const {code, message, nick_name, access_token} = d
-
+      console.log('updateAccessToken:', {d});
       if (code) {
         if (code === 'RefreshTokenExpired' || code === 'InvalidParameter.RefreshToken')
           errorMessage.push('refresh_token 已过期或无效')
-        else errorMessage.push(message)
+        else
+          errorMessage.push(message)
         return Promise.reject(errorMessage.join(','))
       }
       return {nick_name, access_token}
